@@ -1,0 +1,26 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,                  // Enables strict type checking
+    "noImplicitAny": true,           // Disallow variables without types
+    "jsx": "react-native",           // Use React Native JSX mode
+    "moduleResolution": "node",      // Resolve modules like Node.js
+    "skipLibCheck": true,            // Skip checking type definitions for libraries
+    "baseUrl": "./",                 // Base path for resolving paths
+    "paths": {
+      "@/*": ["./*"]                 // Alias for root directory imports
+    }
+  },
+  "include": [
+    "**/*.ts",                       // Include all .ts files
+    "**/*.tsx",                      // Include all .tsx files
+    ".expo/types/**/*.ts",           // Include Expo's internal types
+    "expo-env.d.ts"                  // Include custom Expo environment definitions
+  ],
+  "exclude": [
+    "node_modules",                  // Exclude dependencies
+    "babel.config.js",               // Exclude Babel configuration
+    "metro.config.js",               // Exclude Metro configuration
+    "jest.config.js"                 // Exclude Jest configuration
+  ]
+}
