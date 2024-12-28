@@ -2,3 +2,5 @@
 NewApp/
 # in expo go app
 lms/
+node_modules
+mobile-frontend
