@@ -1,11 +1,13 @@
+// Create New course section
+
 "use client";
 
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input"; // Adjust path as per your project
-import { Button } from "@/components/ui/button"; // Adjust path as per your project
-import { Textarea } from "@/components/ui/textarea"; // Adjust path as per your project
+import { Input } from "@/components/ui/input"; 
+import { Button } from "@/components/ui/button"; 
+import { Textarea } from "@/components/ui/textarea"; 
 
 type CourseForm = {
   name: string;

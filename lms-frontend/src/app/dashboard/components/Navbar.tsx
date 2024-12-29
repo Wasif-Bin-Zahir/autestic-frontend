@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 export default function Navbar() {
   const router = useRouter();
 
+  // logout
   const handleLogout = () => {
-    // Clear authentication tokens or cookies (if any)
-    localStorage.removeItem("authToken"); // Example: Clear JWT token
-
+    // Clear authentication tokens or cookies 
+    localStorage.removeItem("authToken"); 
     // Redirect to the login page
     router.push("/login");
   };
@@ -20,7 +20,7 @@ export default function Navbar() {
       <h1 className="text-xl font-bold">Admin Dashboard</h1>
       <div>
         <Button
-          variant="secondary" // Use the appropriate variant if you have variants defined
+          variant="secondary" 
           onClick={handleLogout}
         >
           Logout

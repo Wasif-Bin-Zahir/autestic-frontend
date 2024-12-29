@@ -3,8 +3,8 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input"; // Adjust path if necessary
-import { Button } from "@/components/ui/button"; // Adjust path if necessary
+import { Input } from "@/components/ui/input"; 
+import { Button } from "@/components/ui/button"; 
 
 type ModuleForm = {
   name: string;
@@ -13,11 +13,11 @@ type ModuleForm = {
 export default function CreateModulePage() {
   const { register, handleSubmit } = useForm<ModuleForm>();
   const router = useRouter();
-  const courseId = "1"; // Replace with dynamic courseId from query
+  const courseId = "1"; 
 
   const onSubmit: SubmitHandler<ModuleForm> = (data) => {
     console.log("New Module:", data);
-    // Add API call here to save the module
+    // Add API call 
     alert("Module created successfully!");
 
     // Navigate back to the module listing page

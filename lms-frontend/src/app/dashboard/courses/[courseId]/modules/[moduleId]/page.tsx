@@ -2,13 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"; // Adjust path if necessary
-
-const videos = ["Video 1", "Video 2", "Video 3"]; // Replace with API data if needed
+import { Button } from "@/components/ui/button";
+const videos = ["Video 1", "Video 2", "Video 3"]; 
 
 export default function ModuleVideosPage() {
-  const courseId = "1"; // Replace with dynamic query from router
-  const moduleId = "1-1"; // Replace with dynamic query from router
+  const courseId = "1"; 
+  const moduleId = "1-1"; 
 
   return (
     <div className="p-6">
@@ -39,7 +38,7 @@ export default function ModuleVideosPage() {
               <Button
                 variant="secondary"
                 className="text-red-500 px-2"
-                onClick={() => console.log(`Delete video ${index}`)} // Replace with actual delete logic
+                onClick={() => console.log(`Delete video ${index}`)} 
               >
                 Delete
               </Button>

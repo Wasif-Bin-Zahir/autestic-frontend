@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"; // Adjust the path if necessary
+import { Button } from "@/components/ui/button"; 
 
 const courses = [
   { id: "1", name: "Course 1" },
@@ -14,7 +14,7 @@ export default function CoursesPage() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Manage Courses</h1>
       <div className="mb-4">
-        <Link href="/dashboard/courses/create">
+        <Link href="/dashboard/courses/createCourse">
           <Button variant="default" className="px-4 py-2">
             + Add New Course
           </Button>

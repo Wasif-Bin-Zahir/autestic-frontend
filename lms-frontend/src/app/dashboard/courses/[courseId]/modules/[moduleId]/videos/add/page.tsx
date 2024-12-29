@@ -16,10 +16,9 @@ type VideoForm = {
 export default function AddVideoPage() {
   const { register, handleSubmit, watch } = useForm<VideoForm>();
   const router = useRouter();
-  const courseId = "1"; // Replace with dynamic query from router
-  const moduleId = "1-1"; // Replace with dynamic query from router
+  const courseId = "1"; 
+  const moduleId = "1-1"; 
 
-  // Watching form fields
   const title = watch("title");
   const description = watch("description");
 

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Sidebar() {
   const router = useRouter();
 
+  // routes
 const menuItems = [
   { name: "Dashboard", route: "/dashboard" },
   { name: "Users", route: "/dashboard/users" },

@@ -16,7 +16,7 @@ export default function CourseModulesPage() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Modules for Course {courseId}</h1>
       <div className="mb-4">
-        <Link href={`/dashboard/courses/${courseId}/modules/create`}>
+        <Link href={`/dashboard/courses/${courseId}/modules/createModule`}>
           <Button variant="default" className="px-4 py-2">
             + Add New Module
           </Button>
