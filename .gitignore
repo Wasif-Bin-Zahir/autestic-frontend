@@ -1,5 +1,7 @@
 # in android studio
 NewApp/
-# in expo go app
-lms/
+# in expo go app(mobile-frontend)
+mobile-frontend
+#in web demo
+web-frontend
 node_modules
