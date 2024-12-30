@@ -6,14 +6,16 @@ import { useRouter } from "next/navigation";
 export default function Sidebar() {
   const router = useRouter();
 
-  // routes
-const menuItems = [
-  { name: "Dashboard", route: "/dashboard" },
-  { name: "Users", route: "/dashboard/users" },
-  { name: "Courses", route: "/dashboard/courses" },
-  { name: "Subscriptions", route: "/dashboard/subscriptions" },
-  { name: "Reports", route: "/dashboard/reports" },
-];
+  // Routes including Packages and Payments
+  const menuItems = [
+    { name: "Dashboard", route: "/dashboard" },
+    { name: "Users", route: "/dashboard/users" },
+    { name: "Courses", route: "/dashboard/courses" },
+    { name: "Packages", route: "/dashboard/packages" }, // Added Packages
+    { name: "Payments", route: "/dashboard/payments" }, // Added Payments
+    { name: "Subscriptions", route: "/dashboard/subscriptions" },
+    { name: "Reports", route: "/dashboard/reports" },
+  ];
 
   return (
     <div className="w-64 bg-gray-800 text-white h-full flex flex-col">

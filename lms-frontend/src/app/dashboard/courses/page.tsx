@@ -1,51 +1,87 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"; 
+import Image from "next/image";
 
-const courses = [
-  { id: "1", name: "Course 1" },
-  { id: "2", name: "Course 2" },
+const initialCourses = [
+  {
+    id: "1",
+    name: "Course 1",
+    description: "This is the first course",
+    thumbnail: "https://via.placeholder.com/150",
+    metadata: { level: "Beginner", duration: "4 weeks" },
+  },
+  {
+    id: "2",
+    name: "Course 2",
+    description: "This is the second course",
+    thumbnail: "https://via.placeholder.com/150",
+    metadata: { level: "Intermediate", duration: "8 weeks" },
+  },
 ];
 
-export default function CoursesPage() {
+export default function CourseListPage() {
+  const [courses, setCourses] = useState(initialCourses);
+
+  const handleDelete = (courseId: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this course?");
+    if (confirmDelete) {
+      setCourses((prev) => prev.filter((course) => course.id !== courseId));
+      alert("Course deleted successfully!");
+    }
+  };
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Manage Courses</h1>
-      <div className="mb-4">
-        <Link href="/dashboard/courses/createCourse">
-          <Button variant="default" className="px-4 py-2">
-            + Add New Course
-          </Button>
-        </Link>
-      </div>
-
-      <ul className="space-y-4">
-        {courses.map((course) => (
-          <li
-            key={course.id}
-            className="border p-4 rounded bg-white shadow-md flex justify-between items-center"
-          >
-            <span className="font-semibold">{course.name}</span>
-            <div className="space-x-4">
-              <Link href={`/dashboard/courses/${course.id}`}>
-                <Button variant="link" className="text-blue-500">
-                  Manage Modules
-                </Button>
-              </Link>
-              <Link href={`/dashboard/courses/${course.id}/edit`}>
-                <Button variant="link" className="text-yellow-500">
-                  Edit
-                </Button>
-              </Link>
-              <Button variant="link" className="text-red-500 hover:underline">
-                Delete
-              </Button>
+      <h1 className="text-2xl font-bold mb-6">Course Management</h1>
+      <Link href="/dashboard/courses/addCourse">
+        <Button className="mb-4">+ Add New Course</Button>
+      </Link>
+      {courses.map((course) => (
+        <div
+          key={course.id}
+          className="border p-4 rounded bg-white shadow-md flex justify-between items-center mb-4"
+        >
+          <div className="flex items-center space-x-4">
+            <Image
+              src={course.thumbnail}
+              alt={course.name}
+              width={64}
+              height={64}
+              className="rounded-md"
+            />
+            <div>
+              <h2 className="text-lg font-bold">{course.name}</h2>
+              <p className="text-sm text-gray-500">{course.description}</p>
+              <p className="text-sm text-gray-400">
+                <strong>Level:</strong> {course.metadata.level} |{" "}
+                <strong>Duration:</strong> {course.metadata.duration}
+              </p>
             </div>
-          </li>
-        ))}
-      </ul>
+          </div>
+          <div className="space-x-2">
+            <Link href={`/dashboard/courses/${course.id}/modules`}>
+              <Button variant="outline" size="sm">
+                Manage Modules
+              </Button>
+            </Link>
+            <Link href={`/dashboard/courses/${course.id}/editCourse`}>
+              <Button variant="outline" size="sm">
+                Edit
+              </Button>
+            </Link>
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => handleDelete(course.id)}
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
