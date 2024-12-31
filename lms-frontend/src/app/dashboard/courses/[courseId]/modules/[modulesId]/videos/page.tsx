@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { DeleteModal } from "@/components/DeleteModal"; // Adjust the path to your DeleteModal
 
 const initialVideos = [
   {
@@ -27,20 +28,45 @@ const initialVideos = [
 export default function ModuleVideosPage() {
   const [videos, setVideos] = useState(initialVideos);
 
-  const handleDelete = (videoId: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this video?");
-    if (confirmDelete) {
-      setVideos((prev) => prev.filter((video) => video.id !== videoId));
-      alert("Video deleted successfully!");
-    }
+  // State for controlling the delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [videoToDelete, setVideoToDelete] = useState<string | null>(null);
+
+  // Open DeleteModal
+  const openDeleteModal = (videoId: string) => {
+    setVideoToDelete(videoId);
+    setShowDeleteModal(true);
   };
 
+  // Confirm deletion in modal
+  const confirmDelete = () => {
+    if (videoToDelete) {
+      setVideos((prev) => prev.filter((video) => video.id !== videoToDelete));
+      alert("Video deleted successfully!");
+    }
+    setShowDeleteModal(false);
+    setVideoToDelete(null);
+  };
+
+  // Cancel deletion in modal
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setVideoToDelete(null);
+  };
+
+  // Replace these with actual `courseId` and `moduleId` from your route
+  const courseId = "1";
+  const moduleId = "1";
+
   return (
-    <div className="p-6">
+    <div className="p-6 relative">
       <h1 className="text-2xl font-bold mb-6">Manage Videos</h1>
-      <Link href="/dashboard/courses/${courseId}/modules/${moduleId}/videos/add">
+
+      {/* Link to add a new video */}
+      <Link href={`/dashboard/courses/${courseId}/modules/${moduleId}/videos/add`}>
         <Button className="mb-4">+ Add New Video</Button>
       </Link>
+
       {videos.map((video) => (
         <div
           key={video.id}
@@ -59,27 +85,31 @@ export default function ModuleVideosPage() {
               <p className="text-sm text-gray-500">{video.description}</p>
               <p className="text-sm text-gray-400">
                 <strong>Duration:</strong> {video.duration} |{" "}
-                <strong>Download:</strong>{" "}
-                {video.downloadEnabled ? "Enabled" : "Disabled"}
+                <strong>Download:</strong> {video.downloadEnabled ? "Enabled" : "Disabled"}
               </p>
             </div>
           </div>
           <div className="space-x-2">
-            <Link href="/dashboard/courses/${courseId}/modules/${moduleId}/videos/${videoId}/edit">
+            <Link href={`/dashboard/courses/${courseId}/modules/${moduleId}/videos/${video.id}/edit`}>
               <Button variant="outline" size="sm">
                 Edit
               </Button>
             </Link>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => handleDelete(video.id)}
-            >
+            <Button variant="destructive" size="sm" onClick={() => openDeleteModal(video.id)}>
               Delete
             </Button>
           </div>
         </div>
       ))}
+
+      {/* Render the DeleteModal conditionally */}
+      {showDeleteModal && (
+        <DeleteModal
+          message="Are you sure you want to delete this video?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 }

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+// Import your DeleteModal component (adjust the path as needed)
+import { DeleteModal } from "@/components/DeleteModal";
 
 const initialCourses = [
   {
@@ -24,17 +26,34 @@ const initialCourses = [
 
 export default function CourseListPage() {
   const [courses, setCourses] = useState(initialCourses);
+  // Control DeleteModal visibility and track which course to delete
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [courseToDelete, setCourseToDelete] = useState<string | null>(null);
 
-  const handleDelete = (courseId: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this course?");
-    if (confirmDelete) {
-      setCourses((prev) => prev.filter((course) => course.id !== courseId));
+  // Open the DeleteModal
+  const openDeleteModal = (courseId: string) => {
+    setCourseToDelete(courseId);
+    setShowDeleteModal(true);
+  };
+
+  // Handle confirm deletion
+  const confirmDelete = () => {
+    if (courseToDelete) {
+      setCourses((prev) => prev.filter((course) => course.id !== courseToDelete));
       alert("Course deleted successfully!");
     }
+    setShowDeleteModal(false);
+    setCourseToDelete(null);
+  };
+
+  // Handle cancel deletion
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setCourseToDelete(null);
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 relative">
       <h1 className="text-2xl font-bold mb-6">Course Management</h1>
       <Link href="/dashboard/courses/addCourse">
         <Button className="mb-4">+ Add New Course</Button>
@@ -75,13 +94,22 @@ export default function CourseListPage() {
             <Button
               variant="destructive"
               size="sm"
-              onClick={() => handleDelete(course.id)}
+              onClick={() => openDeleteModal(course.id)}
             >
               Delete
             </Button>
           </div>
         </div>
       ))}
+
+      {/* Conditionally render your DeleteModal */}
+      {showDeleteModal && (
+        <DeleteModal
+          message="Are you sure you want to delete this course?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 }

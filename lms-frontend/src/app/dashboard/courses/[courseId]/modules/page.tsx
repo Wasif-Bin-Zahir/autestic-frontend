@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { DeleteModal } from "@/components/DeleteModal"; // Import your DeleteModal component
 
 const initialModules = [
   { id: "1", name: "Module 1", courseId: "1" },
@@ -15,10 +16,39 @@ export default function CourseModulesPage() {
   const params = useParams(); // Use useParams hook
   const courseId = params?.courseId; // Extract courseId
 
-  const modules = initialModules.filter((module) => module.courseId === courseId);
+  // Local state to track modules
+  const [modules, setModules] = useState(
+    initialModules.filter((module) => module.courseId === courseId)
+  );
+
+  // State for controlling the delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [moduleToDelete, setModuleToDelete] = useState<string | null>(null);
+
+  // Open the DeleteModal
+  const openDeleteModal = (moduleId: string) => {
+    setModuleToDelete(moduleId);
+    setShowDeleteModal(true);
+  };
+
+  // Confirm deletion in the modal
+  const confirmDelete = () => {
+    if (moduleToDelete) {
+      setModules((prev) => prev.filter((m) => m.id !== moduleToDelete));
+      alert("Module deleted successfully!");
+    }
+    setShowDeleteModal(false);
+    setModuleToDelete(null);
+  };
+
+  // Cancel deletion in the modal
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setModuleToDelete(null);
+  };
 
   return (
-    <div className="p-6">
+    <div className="p-6 relative">
       <h1 className="text-2xl font-bold mb-6">Modules for Course {courseId}</h1>
       <Link href={`/dashboard/courses/${courseId}/modules/addModule`}>
         <Button className="mb-4">+ Add New Module</Button>
@@ -44,7 +74,11 @@ export default function CourseModulesPage() {
                     Edit
                   </Button>
                 </Link>
-                <Button variant="destructive" size="sm" onClick={() => alert("Delete functionality coming soon!")}>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => openDeleteModal(module.id)}
+                >
                   Delete
                 </Button>
               </div>
@@ -53,6 +87,15 @@ export default function CourseModulesPage() {
         </ul>
       ) : (
         <p className="text-gray-500">No modules found for this course.</p>
+      )}
+
+      {/* Conditionally render the DeleteModal */}
+      {showDeleteModal && (
+        <DeleteModal
+          message="Are you sure you want to delete this module?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
       )}
     </div>
   );

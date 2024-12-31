@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { DeleteModal } from "@/components/DeleteModal";
 
 const initialUsers = [
   {
@@ -44,24 +45,42 @@ const initialUsers = [
 export default function UserListPage() {
   const [users, setUsers] = useState(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteUserId, setDeleteUserId] = useState<string | null>(null);
 
-  const handleDelete = (userId: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
-    if (confirmDelete) {
-      setUsers((prev) => prev.filter((user) => user.id !== userId));
-      alert("User deleted successfully!");
-    }
-  };
-
+  // Filtered array for searching
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Trigger the delete modal
+  const openDeleteModal = (userId: string) => {
+    setDeleteUserId(userId);
+    setShowDeleteModal(true);
+  };
+
+  // Handle Confirm in the modal
+  const confirmDelete = () => {
+    if (deleteUserId) {
+      setUsers((prev) => prev.filter((user) => user.id !== deleteUserId));
+      alert("User deleted successfully!");
+    }
+    setShowDeleteModal(false);
+    setDeleteUserId(null);
+  };
+
+  // Handle Cancel in the modal
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setDeleteUserId(null);
+  };
+
   return (
-    <div className="p-6">
+    <div className="p-6 relative">
       <h1 className="text-2xl font-bold mb-6">User Management</h1>
+
       <div className="flex justify-between items-center mb-4">
         <Input
           type="text"
@@ -74,6 +93,7 @@ export default function UserListPage() {
           <Button>Add New User</Button>
         </Link>
       </div>
+
       <Table>
         <TableCaption>A list of all registered users</TableCaption>
         <TableHeader>
@@ -108,7 +128,7 @@ export default function UserListPage() {
                 <Button
                   variant="destructive"
                   size="sm"
-                  onClick={() => handleDelete(user.id)}
+                  onClick={() => openDeleteModal(user.id)}
                 >
                   Delete
                 </Button>
@@ -117,6 +137,15 @@ export default function UserListPage() {
           ))}
         </TableBody>
       </Table>
+
+      {/* Conditionally render the DeleteModal */}
+      {showDeleteModal && (
+        <DeleteModal
+          message="Are you sure you want to delete this user?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 }
