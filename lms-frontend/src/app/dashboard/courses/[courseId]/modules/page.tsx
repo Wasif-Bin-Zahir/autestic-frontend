@@ -35,7 +35,6 @@ export default function CourseModulesPage() {
   const confirmDelete = () => {
     if (moduleToDelete) {
       setModules((prev) => prev.filter((m) => m.id !== moduleToDelete));
-      alert("Module deleted successfully!");
     }
     setShowDeleteModal(false);
     setModuleToDelete(null);

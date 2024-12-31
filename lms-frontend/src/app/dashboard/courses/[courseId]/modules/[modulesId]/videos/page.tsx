@@ -42,7 +42,6 @@ export default function ModuleVideosPage() {
   const confirmDelete = () => {
     if (videoToDelete) {
       setVideos((prev) => prev.filter((video) => video.id !== videoToDelete));
-      alert("Video deleted successfully!");
     }
     setShowDeleteModal(false);
     setVideoToDelete(null);

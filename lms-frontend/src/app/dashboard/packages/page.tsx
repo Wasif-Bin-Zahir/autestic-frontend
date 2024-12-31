@@ -36,7 +36,6 @@ export default function PackageListPage() {
   const confirmDelete = () => {
     if (packageToDelete) {
       setPackages((prev) => prev.filter((pkg) => pkg.id !== packageToDelete));
-      alert("Package deleted successfully!");
     }
     setShowDeleteModal(false);
     setPackageToDelete(null);

@@ -65,7 +65,6 @@ export default function UserListPage() {
   const confirmDelete = () => {
     if (deleteUserId) {
       setUsers((prev) => prev.filter((user) => user.id !== deleteUserId));
-      alert("User deleted successfully!");
     }
     setShowDeleteModal(false);
     setDeleteUserId(null);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react"
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table"; // ShadCN table components
 import { Button } from "@/components/ui/button";
+import { DeleteModal } from "@/components/DeleteModal"; // Import your DeleteModal
 
 type Payment = {
   id: string;
@@ -47,15 +48,33 @@ const initialPayments: Payment[] = [
 export default function PaymentListPage() {
   const [payments, setPayments] = useState<Payment[]>(initialPayments);
 
-  const handleDelete = (id: string) => {
-    if (window.confirm("Are you sure you want to delete this payment record?")) {
-      setPayments((prev) => prev.filter((pay) => pay.id !== id));
-      alert("Payment record deleted!");
+  // State for the delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [paymentToDelete, setPaymentToDelete] = useState<string | null>(null);
+
+  // Open the modal
+  const openDeleteModal = (id: string) => {
+    setPaymentToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  // Confirm the delete action
+  const confirmDelete = () => {
+    if (paymentToDelete) {
+      setPayments((prev) => prev.filter((pay) => pay.id !== paymentToDelete));
     }
+    setPaymentToDelete(null);
+    setShowDeleteModal(false);
+  };
+
+  // Cancel the delete action
+  const cancelDelete = () => {
+    setPaymentToDelete(null);
+    setShowDeleteModal(false);
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 relative">
       <h1 className="text-2xl font-bold mb-4">Payment List</h1>
 
       <Table>
@@ -99,7 +118,7 @@ export default function PaymentListPage() {
                   <Button
                     variant="destructive"
                     size="sm"
-                    onClick={() => handleDelete(payment.id)}
+                    onClick={() => openDeleteModal(payment.id)}
                   >
                     Delete
                   </Button>
@@ -109,6 +128,15 @@ export default function PaymentListPage() {
           )}
         </TableBody>
       </Table>
+
+      {/* DeleteModal, rendered only if showDeleteModal is true */}
+      {showDeleteModal && (
+        <DeleteModal
+          message="Are you sure you want to delete this payment record?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 }

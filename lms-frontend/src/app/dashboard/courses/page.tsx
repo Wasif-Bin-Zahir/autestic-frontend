@@ -40,7 +40,6 @@ export default function CourseListPage() {
   const confirmDelete = () => {
     if (courseToDelete) {
       setCourses((prev) => prev.filter((course) => course.id !== courseToDelete));
-      alert("Course deleted successfully!");
     }
     setShowDeleteModal(false);
     setCourseToDelete(null);
