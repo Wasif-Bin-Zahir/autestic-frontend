@@ -11,7 +11,7 @@ export default function Sidebar() {
 
   // Routes including Packages and Payments
   const menuItems = [
-    { name: "Dashbaord", route: "/dashboard/users" },
+    { name: "Dashbaord", route: "/dashboard" },
     { name: "Users", route: "/dashboard/users" },
     { name: "Courses", route: "/dashboard/courses" },
     { name: "Packages", route: "/dashboard/packages" },
