@@ -9,9 +9,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"; // ShadCN table components
+} from "@/components/ui/table"; 
 import { Button } from "@/components/ui/button";
-import { DeleteModal } from "@/components/DeleteModal"; // Import your DeleteModal
+import { DeleteModal } from "@/components/DeleteModal";
 
 type Payment = {
   id: string;
@@ -129,7 +129,6 @@ export default function PaymentListPage() {
         </TableBody>
       </Table>
 
-      {/* DeleteModal, rendered only if showDeleteModal is true */}
       {showDeleteModal && (
         <DeleteModal
           message="Are you sure you want to delete this payment record?"

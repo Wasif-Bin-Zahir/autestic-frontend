@@ -1,66 +1,44 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label"; // Import Label component
-import { useSearchParams } from "next/navigation";
-import { useRouter } from 'nextjs-toploader/app';
-
-type PackageForm = {
-  name: string;
-  price: string;
-};
+import React, { useEffect, useState } from "react";
+import PackageForm, { PackageFormData } from "@/app/dashboard/components/PackageForm";
+import { useRouter } from "nextjs-toploader/app";
+import { useParams } from "next/navigation";
 
 export default function EditPackagePage() {
-  const { register, handleSubmit, setValue } = useForm<PackageForm>();
+  const [initialValues, setInitialValues] = useState<PackageFormData | null>(null);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const packageId = searchParams.get("packageId");
+  const params = useParams();
+  const packagesId = params?.packagesId;
+  
 
   useEffect(() => {
-    if (packageId) {
-      // Simulate fetching package details
-      const packageDetails = { name: "Basic Plan", price: "$10/month" }; // Replace with API call
-      setValue("name", packageDetails.name);
-      setValue("price", packageDetails.price);
+    if (packagesId) {
+      const packageDetails: PackageFormData = {
+        name: "Basic Plan",
+        price: "$10/month",
+      };
+      setInitialValues(packageDetails);
     }
-  }, [packageId, setValue]);
+  }, [packagesId]);
 
-  const onSubmit = (data: PackageForm) => {
+  const handleEditPackage = (data: PackageFormData) => {
     console.log("Package Updated:", data);
     alert("Package updated successfully!");
     router.push("/dashboard/packages");
   };
 
+  if (!initialValues) return <p>Loading...</p>;
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">Edit Package</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 bg-white p-6 rounded shadow-md"
-      >
-        <div>
-          <Label htmlFor="name">Package Name</Label>
-          <Input
-            {...register("name", { required: true })}
-            id="name"
-            placeholder="Enter package name"
-          />
-        </div>
-        <div>
-          <Label htmlFor="price">Price</Label>
-          <Input
-            {...register("price", { required: true })}
-            id="price"
-            placeholder="Enter price"
-          />
-        </div>
-        <Button type="submit" className="w-full">
-          Update Package
-        </Button>
-      </form>
+            <PackageForm
+        initialValues={initialValues}
+        onSubmit={handleEditPackage}
+        submitButtonLabel="Update Package"
+      />
     </div>
   );
 }
+

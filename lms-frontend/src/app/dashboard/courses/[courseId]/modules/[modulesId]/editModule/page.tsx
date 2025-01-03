@@ -14,13 +14,12 @@ export default function EditModulePage() {
 
   useEffect(() => {
     if (moduleId) {
-      console.log("Module ID:", moduleId); // Debugging
-      // Simulate fetching module details (replace with an actual API call)
+      console.log("Module ID:", moduleId); 
       const moduleDetails = {
         name: "Module 1",
         completionRequirement: "Complete all videos",
       };
-      setInitialValues(moduleDetails); // Set mock data
+      setInitialValues(moduleDetails);
     }
   }, [moduleId]);
 
@@ -30,7 +29,6 @@ export default function EditModulePage() {
     router.push(`/dashboard/courses/${courseId}/modules`);
   };
 
-  // Fallback UI when loading
   if (!initialValues) {
     return (
       <div className="p-6">

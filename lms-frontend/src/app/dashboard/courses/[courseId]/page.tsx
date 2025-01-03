@@ -7,7 +7,6 @@ export default function CourseDetailsPage() {
   const params = useParams();
   const courseId = params?.courseId;
 
-  // Simulated course details
   const course = {
     id: courseId,
     name: "Course 1",

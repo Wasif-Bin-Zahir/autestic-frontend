@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Loader } from "@/components/ui/loader"; // Example Loader Component
+import { Loader } from "@/components/ui/loader"; 
 
 type LoginForm = {
   email: string;
@@ -20,8 +20,8 @@ export default function AdminLoginPage() {
   const { errors } = formState;
   const router = useRouter();
   const [alert, setAlert] = useState<{ type: "error" | "success"; message: string } | null>(null);
-  const [loading, setLoading] = useState(false); // State for form loading
-  const [pageLoading, setPageLoading] = useState(false); // State for page transition loading
+  const [loading, setLoading] = useState(false); 
+  const [pageLoading, setPageLoading] = useState(false); 
 
   const onSubmit = async (data: LoginForm) => {
     setLoading(true); // Start form submission loading
@@ -95,7 +95,7 @@ export default function AdminLoginPage() {
               type="email"
               placeholder="admin@example.com"
               {...register("email", { required: "Email is required" })}
-              disabled={loading} // Disable input when loading
+              disabled={loading} 
             />
             {errors.email && (
               <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
@@ -108,7 +108,7 @@ export default function AdminLoginPage() {
               type="password"
               placeholder="********"
               {...register("password", { required: "Password is required" })}
-              disabled={loading} // Disable input when loading
+              disabled={loading} 
             />
             {errors.password && (
               <p className="text-sm text-red-600 mt-1">{errors.password.message}</p>
@@ -117,7 +117,7 @@ export default function AdminLoginPage() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
-                <Loader /> {/* Loader spinner */}
+                <Loader /> 
                 <span>Signing in...</span>
               </div>
             ) : (

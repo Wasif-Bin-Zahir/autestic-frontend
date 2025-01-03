@@ -9,7 +9,7 @@ export default function EditVideoPage() {
   const [initialValues, setInitialValues] = useState<VideoFormData | null>(null);
   const router = useRouter();
   const params = useParams();
-  const videoId = params?.videoId as string; // Explicitly type videoId
+  const videoId = params?.videoId as string; 
 
   useEffect(() => {
     if (videoId) {

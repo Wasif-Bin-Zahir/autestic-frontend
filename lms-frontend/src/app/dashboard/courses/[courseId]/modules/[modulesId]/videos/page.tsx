@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { DeleteModal } from "@/components/DeleteModal"; // Adjust the path to your DeleteModal
+import { DeleteModal } from "@/components/DeleteModal"; 
 
 const initialVideos = [
   {
@@ -28,17 +28,15 @@ const initialVideos = [
 export default function ModuleVideosPage() {
   const [videos, setVideos] = useState(initialVideos);
 
-  // State for controlling the delete modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [videoToDelete, setVideoToDelete] = useState<string | null>(null);
 
-  // Open DeleteModal
   const openDeleteModal = (videoId: string) => {
     setVideoToDelete(videoId);
     setShowDeleteModal(true);
   };
 
-  // Confirm deletion in modal
+ 
   const confirmDelete = () => {
     if (videoToDelete) {
       setVideos((prev) => prev.filter((video) => video.id !== videoToDelete));
@@ -47,13 +45,11 @@ export default function ModuleVideosPage() {
     setVideoToDelete(null);
   };
 
-  // Cancel deletion in modal
   const cancelDelete = () => {
     setShowDeleteModal(false);
     setVideoToDelete(null);
   };
 
-  // Replace these with actual `courseId` and `moduleId` from your route
   const courseId = "1";
   const moduleId = "1";
 
@@ -61,7 +57,7 @@ export default function ModuleVideosPage() {
     <div className="p-6 relative">
       <h1 className="text-2xl font-bold mb-6">Manage Videos</h1>
 
-      {/* Link to add a new video */}
+
       <Link href={`/dashboard/courses/${courseId}/modules/${moduleId}/videos/add`}>
         <Button className="mb-4">+ Add New Video</Button>
       </Link>
@@ -101,7 +97,6 @@ export default function ModuleVideosPage() {
         </div>
       ))}
 
-      {/* Render the DeleteModal conditionally */}
       {showDeleteModal && (
         <DeleteModal
           message="Are you sure you want to delete this video?"

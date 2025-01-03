@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-// Import your DeleteModal component (adjust the path as needed)
 import { DeleteModal } from "@/components/DeleteModal";
 
 const initialCourses = [
@@ -26,7 +25,6 @@ const initialCourses = [
 
 export default function CourseListPage() {
   const [courses, setCourses] = useState(initialCourses);
-  // Control DeleteModal visibility and track which course to delete
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [courseToDelete, setCourseToDelete] = useState<string | null>(null);
 

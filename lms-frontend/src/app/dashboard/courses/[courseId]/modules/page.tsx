@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { DeleteModal } from "@/components/DeleteModal"; // Import your DeleteModal component
+import { DeleteModal } from "@/components/DeleteModal"; 
 
 const initialModules = [
   { id: "1", name: "Module 1", courseId: "1" },
@@ -13,25 +13,22 @@ const initialModules = [
 ];
 
 export default function CourseModulesPage() {
-  const params = useParams(); // Use useParams hook
-  const courseId = params?.courseId; // Extract courseId
+  const params = useParams();
+  const courseId = params?.courseId; 
 
-  // Local state to track modules
   const [modules, setModules] = useState(
     initialModules.filter((module) => module.courseId === courseId)
   );
 
-  // State for controlling the delete modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [moduleToDelete, setModuleToDelete] = useState<string | null>(null);
 
-  // Open the DeleteModal
+
   const openDeleteModal = (moduleId: string) => {
     setModuleToDelete(moduleId);
     setShowDeleteModal(true);
   };
 
-  // Confirm deletion in the modal
   const confirmDelete = () => {
     if (moduleToDelete) {
       setModules((prev) => prev.filter((m) => m.id !== moduleToDelete));
@@ -40,7 +37,6 @@ export default function CourseModulesPage() {
     setModuleToDelete(null);
   };
 
-  // Cancel deletion in the modal
   const cancelDelete = () => {
     setShowDeleteModal(false);
     setModuleToDelete(null);
@@ -88,7 +84,6 @@ export default function CourseModulesPage() {
         <p className="text-gray-500">No modules found for this course.</p>
       )}
 
-      {/* Conditionally render the DeleteModal */}
       {showDeleteModal && (
         <DeleteModal
           message="Are you sure you want to delete this module?"

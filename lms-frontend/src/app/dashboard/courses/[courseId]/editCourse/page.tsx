@@ -13,7 +13,6 @@ export default function EditCoursePage() {
 
   useEffect(() => {
     if (courseId) {
-      // Simulate fetching course details (replace with an actual API call)
       console.log(courseId)
       const courseDetails = {
         name: "Course 1",
