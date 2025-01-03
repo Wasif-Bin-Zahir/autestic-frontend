@@ -8,11 +8,10 @@ export default function Navbar() {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Clear authentication tokens or cookies
-    localStorage.removeItem("authToken");
-    // Redirect to the login page
+    document.cookie = "authToken=; path=/; max-age=0"; // Clear the cookie
     router.push("/login");
   };
+
 
   return (
     <div className="flex items-center justify-between bg-white shadow px-6 py-4">

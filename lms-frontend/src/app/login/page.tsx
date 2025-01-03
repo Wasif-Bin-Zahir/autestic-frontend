@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
       const res = await loginApi(data.email, data.password);
 
       if (res.status === 200) {
-        localStorage.setItem("authToken", res.data.token); // Store token
+        document.cookie = `authToken=${res.data.token}; path=/; max-age=${60 * 60 * 24}`;
         setPageLoading(true); // Start page transition loading
         router.push("/dashboard");
       }
@@ -117,7 +117,7 @@ export default function AdminLoginPage() {
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
-                <Loader /> 
+                <Loader /> {/* Loader spinner */}
                 <span>Signing in...</span>
               </div>
             ) : (
