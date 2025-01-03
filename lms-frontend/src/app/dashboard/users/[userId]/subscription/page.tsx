@@ -15,8 +15,7 @@ import {
 } from "@/components/ui/card";
 
 export default function SubscriptionDetailsPage() {
-  const params = useParams();
-  const { userId } = params; // Extract userId from params
+  const { userId } = useParams(); // Extract userId from params
 
   const subscription = {
     startDate: "2023-01-01", // Replace with API data

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function Navbar() {
   const router = useRouter();

@@ -1,16 +1,17 @@
 "use client";
 
 import React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname} from "next/navigation";
 import { cn } from "@/lib/utils"; // Utility for conditional classNames if you have it
 import { Button } from "@/components/ui/button";
-
+import { useRouter } from 'nextjs-toploader/app';
 export default function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
 
   // Routes including Packages and Payments
   const menuItems = [
+    { name: "Dashbaord", route: "/dashboard/users" },
     { name: "Users", route: "/dashboard/users" },
     { name: "Courses", route: "/dashboard/courses" },
     { name: "Packages", route: "/dashboard/packages" },
@@ -51,3 +52,4 @@ export default function Sidebar() {
     </div>
   );
 }
+

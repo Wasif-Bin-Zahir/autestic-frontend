@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'nextjs-toploader/app';
 
 type UserForm = {
   name: string;

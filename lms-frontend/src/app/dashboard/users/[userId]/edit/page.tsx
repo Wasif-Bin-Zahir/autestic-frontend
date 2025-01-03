@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"; // Import Label component
-import { useRouter } from "next/navigation";
+import { useRouter } from 'nextjs-toploader/app';
 import { useParams } from "next/navigation";
 
 type UserForm = {
@@ -15,8 +15,7 @@ type UserForm = {
 };
 
 export default function EditUserPage() {
-  const params = useParams(); // Use `useParams` to get the `userId`
-  const { userId } = params; // Extract `userId` from `params`
+const { userId } = useParams(); // Extract `userId` from `params`
 
   const { register, handleSubmit } = useForm<UserForm>({
     defaultValues: {
